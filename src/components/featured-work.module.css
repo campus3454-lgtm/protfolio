@@ -1,0 +1,248 @@
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.42fr);
+  gap: clamp(28px, 4.6vw, 76px);
+  align-items: center;
+  padding-block: clamp(46px, 6.5vw, 92px);
+  border-top: 1px solid var(--line);
+}
+
+.feature:first-child {
+  border-top: 0;
+  padding-top: clamp(28px, 3vw, 44px);
+}
+
+.reverse {
+  grid-template-columns: minmax(0, 1.42fr) minmax(0, 1fr);
+}
+
+.reverse .copy {
+  order: 2;
+}
+
+.reverse .media {
+  order: 1;
+}
+
+.copy {
+  min-width: 0;
+}
+
+.index {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.number {
+  color: var(--accent);
+  font-family: var(--font-serif);
+  font-size: clamp(1.7rem, 2.5vw, 2.2rem);
+  font-style: italic;
+  line-height: 0.9;
+}
+
+.indexRule {
+  width: clamp(24px, 3vw, 44px);
+  height: 1px;
+  background: var(--line-strong);
+}
+
+.title {
+  margin-top: 18px;
+  font-size: clamp(1.9rem, 3.4vw, 3.1rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.title a {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.08em;
+  padding-block: 8px;
+  margin-block: -8px;
+  transition: color 0.3s var(--ease-soft);
+}
+
+.title a:hover {
+  color: var(--accent);
+}
+
+.titleMark {
+  color: var(--accent);
+  font-size: 0.34em;
+  line-height: 1;
+  transform: translateY(0.5em);
+  opacity: 0.85;
+}
+
+.description {
+  max-width: 42ch;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.75;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.media {
+  min-width: 0;
+}
+
+.frame {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10.4;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  box-shadow: 0 34px 80px -50px rgba(0, 0, 0, 0.8);
+  transition:
+    border-color 0.5s var(--ease-soft),
+    box-shadow 0.5s var(--ease-soft),
+    transform 0.7s var(--ease);
+}
+
+.frame:hover,
+.frame:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow: 0 44px 90px -46px rgba(0, 0, 0, 0.85);
+  transform: translateY(-3px);
+}
+
+.image {
+  object-fit: cover;
+  object-position: top center;
+  filter: saturate(0.82) brightness(0.95) contrast(1.02);
+  transition:
+    transform 1.3s var(--ease),
+    filter 0.6s var(--ease-soft);
+}
+
+.frame:hover .image,
+.frame:focus-visible .image {
+  transform: scale(1.025);
+  filter: saturate(0.95) brightness(1) contrast(1.02);
+}
+
+/* Keeps a bright screenshot from blowing out the dark page. */
+.wash {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(10, 9, 8, 0.6) 0%, transparent 46%),
+    linear-gradient(to right, rgba(10, 9, 8, 0.35) 0%, transparent 42%);
+  opacity: 0.9;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease-soft);
+}
+
+.frame:hover .wash,
+.frame:focus-visible .wash {
+  opacity: 0.35;
+}
+
+.open {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.4s var(--ease-soft),
+    transform 0.4s var(--ease);
+}
+
+.frame:hover .open,
+.frame:focus-visible .open {
+  opacity: 1;
+  transform: none;
+}
+
+.caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 12px;
+  color: var(--faint);
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.host {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  gap: 8px;
+}
+
+@media (hover: none) {
+  .open {
+    opacity: 1;
+    transform: none;
+  }
+
+  .wash {
+    opacity: 0.45;
+  }
+}
+
+@media (max-width: 900px) {
+  .feature,
+  .reverse {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-block: clamp(40px, 9vw, 64px);
+  }
+
+  .reverse .copy,
+  .reverse .media {
+    order: 0;
+  }
+
+  .title {
+    font-size: clamp(1.9rem, 6.4vw, 2.6rem);
+  }
+
+  .description {
+    max-width: 56ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame:hover .image,
+  .frame:focus-visible .image {
+    transform: none;
+  }
+}

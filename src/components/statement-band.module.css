@@ -1,0 +1,186 @@
+.band {
+  position: relative;
+  overflow: clip;
+  border-block: 1px solid var(--line);
+  padding-block: clamp(72px, 9vw, 128px);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--surface) 55%, transparent),
+    transparent 62%
+  );
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr);
+  gap: clamp(34px, 5vw, 76px);
+  align-items: center;
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2vw, 22px);
+  min-width: 0;
+}
+
+.line {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding-block: 0.08em;
+}
+
+.text {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.9rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.line .text {
+  color: var(--ink);
+}
+
+.line:nth-child(2) .text {
+  color: var(--ink-soft);
+}
+
+/* The pivot line — set in the serif face and the copper accent. */
+.line[data-accent] .text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 4vw, 3.4rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+}
+
+/* The copper block: sweeps in from the left, out to the right, and the
+   statement rises behind it. */
+.block {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--accent-strong);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+/* `html.js` and `.isVisible` are set outside this module, so they must be
+   opted out of the local class scope. `.isVisible` lands on the <li> itself. */
+:global(html.js) .text {
+  transform: translate3d(0, 105%, 0);
+}
+
+.line:global(.isVisible) .text {
+  animation: statementRise 1s var(--ease) calc(var(--reveal-delay, 0ms) + 330ms)
+    both;
+}
+
+.line:global(.isVisible) .block {
+  animation: statementSweep 1.15s var(--ease) var(--reveal-delay, 0ms) both;
+}
+
+@keyframes statementRise {
+  from {
+    transform: translate3d(0, 105%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes statementSweep {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  42% {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+  58% {
+    transform: scaleX(1);
+    transform-origin: right center;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, color-mix(in srgb, var(--bg) 55%, transparent), transparent 40%),
+    linear-gradient(125deg, transparent 58%, color-mix(in srgb, var(--bg) 34%, transparent));
+  pointer-events: none;
+}
+
+.image {
+  object-fit: cover;
+  object-position: 50% 12%;
+  filter: brightness(0.82) saturate(0.78) contrast(1.1);
+}
+
+.mediaTint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--accent) 16%, transparent) 0%,
+    transparent 52%
+  );
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+[data-theme="light"] .image {
+  filter: brightness(0.97) saturate(0.92) contrast(1.05);
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  /* Statement first on small screens; the photograph supports it. */
+  .lines {
+    order: -1;
+  }
+
+  .media {
+    aspect-ratio: 5 / 4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html.js) .text {
+    transform: none;
+  }
+
+  .line:global(.isVisible) .block {
+    animation: none;
+  }
+
+  .block {
+    display: none;
+  }
+}

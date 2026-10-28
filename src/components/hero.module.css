@@ -1,0 +1,369 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  padding-top: var(--header-h);
+  overflow: clip;
+}
+
+/* The photograph is the stage; everything else sits in front of it. */
+.photo {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: 0;
+  width: min(56%, 900px);
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-height: calc(100svh - var(--header-h));
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(40px, 7vh, 76px) clamp(86px, 11vh, 108px);
+}
+
+/* Keeps the type legible where it overlaps the photograph. */
+.inner::before {
+  content: "";
+  position: absolute;
+  inset: -12% -26% -12% -50vw;
+  z-index: -1;
+  background: linear-gradient(
+    to right,
+    var(--bg) 30%,
+    color-mix(in srgb, var(--bg) 82%, transparent) 52%,
+    transparent 78%
+  );
+  pointer-events: none;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  animation: introFade 0.9s var(--ease) 0.1s both;
+}
+
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 32px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 62%, transparent);
+  color: var(--ink-soft);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--faint);
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.15em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.metaDot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+.title {
+  margin-top: clamp(18px, 3vh, 30px);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.nameLine {
+  font-size: clamp(3.1rem, 10.6vw, 7.6rem);
+  line-height: 0.84;
+  letter-spacing: -0.058em;
+}
+
+.lastName {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.06em;
+  color: var(--ink);
+}
+
+/* The register mark — the site's one recurring motif. */
+.mark {
+  color: var(--accent);
+  font-size: 0.34em;
+  line-height: 1;
+  transform: translateY(0.28em);
+  animation: markSpin 14s linear infinite;
+  transform-origin: center;
+}
+
+.statementLine {
+  margin-top: clamp(14px, 2.4vh, 26px);
+  color: var(--ink-soft);
+  font-family: var(--font-sans);
+  font-size: clamp(1.06rem, 1.7vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: -0.018em;
+}
+
+.statementLine + .statementLine {
+  margin-top: 2px;
+}
+
+.statementAccent {
+  color: var(--accent);
+  font-size: 1.12em;
+}
+
+.supporting {
+  max-width: 46ch;
+  margin-top: clamp(18px, 2.6vh, 26px);
+  color: var(--muted);
+  font-size: clamp(0.93rem, 1.05vw, 1rem);
+  line-height: 1.72;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(22px, 3vh, 30px);
+  animation: introUp 0.9s var(--ease) 0.62s both;
+}
+
+.connect {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  max-width: 620px;
+  margin-top: clamp(22px, 3.4vh, 34px);
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  animation: introFade 1s var(--ease) 0.78s both;
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px 18px;
+}
+
+.social {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 550;
+  transition: color 0.3s var(--ease-soft);
+}
+
+.social svg {
+  color: var(--faint);
+  transition:
+    color 0.3s var(--ease-soft),
+    transform 0.3s var(--ease);
+}
+
+.social:hover {
+  color: var(--ink);
+}
+
+.social:hover svg {
+  color: var(--accent);
+}
+
+.social:hover svg:last-child {
+  transform: translate(2px, -2px);
+}
+
+.cueRow {
+  position: absolute;
+  inset: auto auto clamp(22px, 3vh, 34px) clamp(20px, 4.4vw, 60px);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  animation: introFade 1s var(--ease) 1s both;
+}
+
+.scrollCue {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  color: var(--faint);
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  transition: color 0.3s var(--ease-soft);
+}
+
+.scrollCue:hover {
+  color: var(--ink-soft);
+}
+
+.scrollLine {
+  position: relative;
+  width: 1px;
+  height: 30px;
+  overflow: hidden;
+  background: var(--line-strong);
+}
+
+.scrollLine span {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  animation: scrollDrop 2.4s var(--ease-soft) infinite;
+}
+
+.footerIndex {
+  color: var(--faint);
+  font-size: 0.58rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.17em;
+}
+
+@keyframes scrollDrop {
+  0% {
+    transform: translateY(-100%);
+  }
+  45% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes markSpin {
+  to {
+    transform: translateY(0.28em) rotate(360deg);
+  }
+}
+
+@media (max-width: 1180px) {
+  .photo {
+    width: min(50%, 640px);
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: 100svh;
+    padding-top: calc(var(--header-h) + 6px);
+  }
+
+  .photo {
+    inset: var(--header-h) 0 auto;
+    width: 100%;
+    height: 48svh;
+  }
+
+  .inner {
+    min-height: auto;
+    padding-block: clamp(250px, 38svh, 360px) clamp(20px, 3vh, 32px);
+  }
+
+  .inner::before {
+    display: none;
+  }
+
+  .title {
+    margin-top: 0;
+  }
+
+  .nameLine {
+    font-size: clamp(2.9rem, 13.4vw, 4.6rem);
+  }
+
+  .statementLine {
+    max-width: 22ch;
+    margin-top: 14px;
+  }
+
+  .supporting {
+    max-width: 42ch;
+  }
+
+  .cueRow {
+    position: static;
+    padding: 0 20px 22px;
+  }
+
+  .footerIndex {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .metaItem span:first-child {
+    display: none;
+  }
+
+  .metaItem {
+    gap: 0;
+  }
+
+  .actions {
+    gap: 10px;
+  }
+
+  .actions > a {
+    flex: 1 1 0;
+    min-height: 50px;
+    padding-inline: 12px;
+    font-size: 0.8rem;
+  }
+
+  .connect {
+    gap: 4px 16px;
+  }
+
+  .connect > .micro {
+    display: none;
+  }
+}
+
+@media (max-height: 780px) and (min-width: 901px) {
+  .inner {
+    padding-block: 34px 108px;
+  }
+
+  .nameLine {
+    font-size: clamp(2.9rem, 8.4vw, 6.2rem);
+  }
+
+  .supporting {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mark {
+    animation: none;
+  }
+}

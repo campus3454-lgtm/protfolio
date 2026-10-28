@@ -1,0 +1,29 @@
+.light {
+  position: fixed;
+  top: -340px;
+  left: -340px;
+  z-index: 1;
+  width: 680px;
+  height: 680px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle at center,
+    var(--glow-a) 0%,
+    color-mix(in srgb, var(--glow-a) 45%, transparent) 38%,
+    transparent 68%
+  );
+  transition: opacity 0.8s var(--ease-soft);
+  will-change: transform;
+}
+
+.light[data-active="true"] {
+  opacity: 0.85;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .light {
+    display: none;
+  }
+}
